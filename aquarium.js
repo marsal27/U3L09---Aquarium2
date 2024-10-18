@@ -86,6 +86,7 @@ function draw() {
   } else {
     fishColor = color(200, 100, 100);
   }
+  // second fish eats food
   if (dist(fishX2, fishY2, foodX, foodY) < fishSize / 2 && foodDropped) {
     fishColor2 = color(100, 200, 100);
     foodDropped = false;
