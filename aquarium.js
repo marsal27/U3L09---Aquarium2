@@ -1,9 +1,11 @@
 let fishX, fishY, fishSize;
-let fishColor;
+let fishX2, fishY2;
+let fishColor, fishColor2;
 let aquariumName = "My Aquarium";
 let foodX, foodY;
 let foodDropped = false;
 let bubbles = [];
+let up=false,down=false,left=false,right=false;
 
 
 function setup() {
@@ -12,6 +14,11 @@ function setup() {
   fishY = height / 2;
   fishSize = 50;
   fishColor = color(200, 100, 100);
+
+  // second fish
+  fishX2 = width/2
+  fishY2=height/4
+  fishColor2 = color(134,178,217)
 
 
   // Initialize bubbles
@@ -37,7 +44,11 @@ function draw() {
   fill(fishColor);
   ellipse(fishX, fishY, fishSize, fishSize / 2);
   triangle(fishX - fishSize / 2, fishY, fishX - fishSize, fishY - fishSize / 4, fishX - fishSize, fishY + fishSize / 4);
-
+  
+  // Draw fish 2
+  fill(fishColor2)
+  ellipse(fishX2, fishY2, fishSize, fishSize / 2);
+  triangle(fishX2 - fishSize / 2, fishY2, fishX2 - fishSize, fishY2 - fishSize / 4, fishX2 - fishSize, fishY2 + fishSize / 4);
 
   // Fish follows mouse
   fishX = lerp(fishX, mouseX, 0.05);
@@ -75,6 +86,32 @@ function draw() {
   } else {
     fishColor = color(200, 100, 100);
   }
+  if (dist(fishX2, fishY2, foodX, foodY) < fishSize / 2 && foodDropped) {
+    fishColor2 = color(100, 200, 100);
+    foodDropped = false;
+  } else {
+    fishColor2 = color(134, 178, 217);
+  }
+  if(up===true){
+    fishY2-=2
+  }else{
+    fishY2+=0
+  }
+  if(left===true){
+    fishX2-=2
+  }else{
+    fishX2+=0
+  }
+  if(down===true){
+    fishY2+=2
+  }else{
+    fishY2+=0
+  }
+  if(right===true){
+    fishX2+=2
+  }else{
+    fishX2+=0
+  }
 }
 
 
@@ -85,6 +122,35 @@ function keyPressed() {
     foodY = 0;
     foodDropped = true;
   }
+
+  // move second fish
+  
+  if(key==='W'|| key==='w'){
+    up=true
+  }
+  if(key==='A'|| key==='a'){
+    left=true
+  }
+  if(key==='S'|| key==='s'){
+    down=true
+  }
+  if(key==='D'|| key==='d'){
+    right=true
+  }
 }
 
-
+function keyReleased(){
+  if(key==='W'|| key==='w'){
+    up=false
+  }
+  if(key==='A'|| key==='a'){
+    left=false
+  }
+  if(key==='S'|| key==='s'){
+    down=false
+  }
+  if(key==='D'|| key==='d'){
+    right=false
+  }
+  
+}
